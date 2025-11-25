@@ -1,21 +1,9 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from math import *
-
-# ---------------------------
-# PAGE CONFIG
-# ---------------------------
 st.set_page_config(
     page_title="Regula Falsi App",
     page_icon="⚡",
     layout="wide"
 )
-
-# ---------------------------
-# CUSTOM CSS (UI PROFESSIONAL)
-# ---------------------------
 st.markdown("""
 <style>
 
@@ -67,9 +55,6 @@ h1 {
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------
-# HEADER
-# ---------------------------
 st.markdown("""
 <div class="header-box">
     <h1>⚡ Metode Regula Falsi</h1>
@@ -77,16 +62,10 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------------------
-# SIDEBAR
-# ---------------------------
 st.sidebar.title("⚙️ Pengaturan Aplikasi")
 st.sidebar.info("Gunakan menu ini untuk mengatur parameter perhitungan Regula Falsi.")
 st.sidebar.write("Developer: **Akbar Maulana**")
 
-# ---------------------------
-# INPUT SECTION
-# ---------------------------
 st.markdown("### 🧮 Input Parameter")
 with st.container():
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -104,15 +83,9 @@ tol = st.number_input("Toleransi Error:", value=0.0001)
 
 btn = st.button("🔍 Hitung Akar", use_container_width=True)
 
-# ---------------------------
-# FUNCTION
-# ---------------------------
 def f(x): 
     return eval(fungsi)
 
-# ---------------------------
-# PROCESS
-# ---------------------------
 if btn:
     st.markdown("### 📌 Hasil Perhitungan")
 
@@ -141,9 +114,6 @@ if btn:
             akar = None
             break
 
-    # ---------------------------
-    # RESULT CARD
-    # ---------------------------
     if akar is not None:
         st.markdown(
             f"<div class='result-box'>Akar ditemukan pada: <b>{akar}</b></div>",
@@ -152,16 +122,10 @@ if btn:
     else:
         st.error("❌ Akar tidak ditemukan hingga 100 iterasi.")
 
-    # ---------------------------
-    # TABLE
-    # ---------------------------
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
     st.markdown("### 📊 Tabel Iterasi")
     st.dataframe(df, use_container_width=True)
 
-    # ---------------------------
-    # GRAPH
-    # ---------------------------
     st.markdown("### 📈 Grafik Konvergensi Akar")
     plt.figure(figsize=(7,4))
     plt.plot(df["Iterasi"], df["c"], marker="o")
@@ -170,9 +134,6 @@ if btn:
     plt.title("Grafik Konvergensi Metode Regula Falsi")
     st.pyplot(plt)
 
-# ---------------------------
-# FOOTER
-# ---------------------------
 st.markdown("""
 <div class="footer">
     Dibuat dengan ❤️ oleh Akbar Maulana • Streamlit Regula Falsi UI Modern Edition
