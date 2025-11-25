@@ -62,7 +62,7 @@ def f(x):
 
 
 if hitung:
-st.write("---")
+    st.write("---")
 
 
 colR1, colR2 = st.columns([1.2, 1])
