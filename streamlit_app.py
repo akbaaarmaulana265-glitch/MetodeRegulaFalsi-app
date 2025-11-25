@@ -43,8 +43,6 @@ color: #7b8794;
 unsafe_allow_html=True
 )
 
-# ================================
-"Metode *Regula Falsi* (False Position) menggunakan garis sekant untuk memperkirakan akar persamaan f(x)."
 )
 st.write("""
 **Kelebihan:**
