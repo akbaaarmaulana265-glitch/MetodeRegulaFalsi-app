@@ -1,5 +1,18 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from math import *
+
+
+# ================================
+# ⚡ PROFESSIONAL UI STYLING
+# ================================
 st.set_page_config(page_title="Regula Falsi Calculator", layout="wide", page_icon="⚡")
+
+
+# Custom CSS
+st.markdown(
 """
 <style>
 body { background-color: #f5f7fa; }
@@ -37,37 +50,7 @@ color: #7b8794;
 unsafe_allow_html=True
 )
 
-
-st.markdown("<div class='title'>⚡ Metode Regula Falsi – Root Finder App</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Aplikasi profesional untuk mencari akar persamaan non-linear</div>", unsafe_allow_html=True)
-
-
-st.write("---")
-
-
-col1, col2 = st.columns([1.2, 1])
-
-with col1:
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-st.markdown("### 🔧 Input Parameter")
-
-
-fungsi = st.text_input("Masukkan Fungsi f(x):", "x**3 - x - 2")
-a = st.number_input("Batas bawah (a):", value=1.0)
-b = st.number_input("Batas atas (b):", value=2.0)
-toleransi = st.number_input("Toleransi error:", value=0.0001)
-
-
-hitung = st.button("🔍 Hitung Akar", use_container_width=True)
-
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-
-with col2:
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-st.markdown("### ℹ️ Informasi Metode")
-st.write(
+# ================================
 "Metode *Regula Falsi* (False Position) menggunakan garis sekant untuk memperkirakan akar persamaan f(x)."
 )
 st.write("""
@@ -76,60 +59,63 @@ st.write("""
 - Tidak memerlukan turunan f(x)
 
 
-
+**Kekurangan:**
+- Lebih lambat dibanding Newton-Raphson
+- Bisa stagnan pada beberapa kasus
 """)
 st.markdown("</div>", unsafe_allow_html=True)
 
-Regula Falsi Streamlit Pro
-· python
-    """)
-    st.markdown("</div>", unsafe_allow_html=True)
 
-
-
+# ================================
+# FUNCTION
+# ================================
 def f(x):
-    return eval(fungsi)
+return eval(fungsi)
 
 
-
+# ================================
+# PROCESSING LOGIC
+# ================================
 if hitung:
-    st.write("---")
+st.write("---")
 
 
-    colR1, colR2 = st.columns([1.2, 1])
+colR1, colR2 = st.columns([1.2, 1])
 
 
-    iterasi = 0
-    data = []
+iterasi = 0
+data = []
 
 
-    while True:
-        fa = f(a)
-        fb = f(b)
-        c = b - (fb * (b - a)) / (fb - fa)
-        fc = f(c)
+while True:
+fa = f(a)
+fb = f(b)
+c = b - (fb * (b - a)) / (fb - fa)
+fc = f(c)
 
 
-        data.append([iterasi, a, b, c, fa, fb, fc])
+data.append([iterasi, a, b, c, fa, fb, fc])
 
 
-        if abs(fc) < toleransi:
-            akar = c
-            break
+if abs(fc) < toleransi:
+akar = c
+break
 
 
-        if fa * fc < 0:
-            b = c
-        else:
-            a = c
+if fa * fc < 0:
+b = c
+else:
+a = c
 
 
-        iterasi += 1
-        if iterasi > 100:
-            akar = None
-            break
+iterasi += 1
+if iterasi > 100:
+akar = None
+break
 
-
+# ================================
+# RESULT DISPLAY
+# ================================
 with colR1:
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.markdown("### ✅ Hasil Perhitungan")
@@ -144,7 +130,9 @@ st.error("Akar tidak ditemukan dalam 100 iterasi.")
 st.markdown("</div>", unsafe_allow_html=True)
 
 
-
+# ================================
+# TABLE
+# ================================
 df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
 
@@ -155,7 +143,9 @@ st.dataframe(df, use_container_width=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 
-
+# ================================
+# GRAPH
+# ================================
 with colR2:
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.markdown("### 📈 Grafik Konvergensi Akar")
@@ -169,10 +159,12 @@ plt.title("Grafik Konvergensi Metode Regula Falsi")
 st.pyplot(plt, clear_figure=True)
 
 
-st.markdown("</div>", unsafe_allow_html=True)            
+st.markdown("</div>", unsafe_allow_html=True)
 
-            
 
+# ================================
+# FOOTER
+# ================================
 st.markdown("<div class='footer'>Dibuat dengan ❤️ menggunakan Streamlit • Regula Falsi Professional Edition</div>", unsafe_allow_html=True)
 
 
