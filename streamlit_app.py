@@ -43,7 +43,6 @@ color: #7b8794;
 unsafe_allow_html=True
 )
 
-)
 st.write("""
 **Kelebihan:**
 - Lebih stabil dibanding metode sekant
