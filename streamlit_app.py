@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("🎈 My new app")
+st.title("Metode Regula Falsi")
 st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
+    "https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"
 )
