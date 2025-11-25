@@ -59,3 +59,9 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<div class="header-box">
+    <h1>⚡ Metode Regula Falsi</h1>
+    <p class="subtext">Aplikasi profesional untuk mencari akar persamaan non-linear</p>
+</div>
+""", unsafe_allow_html=True)
