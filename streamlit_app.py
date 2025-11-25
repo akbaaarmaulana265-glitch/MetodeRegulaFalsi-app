@@ -4,6 +4,11 @@ st.title("Metode Regula Falsi")
 st.write(
     "Selamat Datang Di Layanan Kami https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"
 )
+st.set_page_config(
+    page_title="Regula Falsi App",
+    page_icon="⚡",
+    layout="wide"
+)
 st.markdown("""
 <style>
 
