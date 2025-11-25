@@ -4,7 +4,6 @@ st.title("Metode Regula Falsi")
 st.write(
     "Selamat Datang Di Layanan Kami https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"
 )
-import streamlit as st
 if fa * fc < 0:
 b = c
 else:
@@ -17,9 +16,7 @@ akar = None
 break
 
 
-# ================================
-# RESULT DISPLAY
-# ================================
+
 with colR1:
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.markdown("### ✅ Hasil Perhitungan")
@@ -34,9 +31,7 @@ st.error("Akar tidak ditemukan dalam 100 iterasi.")
 st.markdown("</div>", unsafe_allow_html=True)
 
 
-# ================================
-# TABLE
-# ================================
+
 df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
 
@@ -47,9 +42,7 @@ st.dataframe(df, use_container_width=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 
-# ================================
-# GRAPH
-# ================================
+
 with colR2:
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.markdown("### 📈 Grafik Konvergensi Akar")
@@ -66,7 +59,4 @@ st.pyplot(plt, clear_figure=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 
-# ================================
-# FOOTER
-# ================================
 st.markdown("<div class='footer'>Dibuat dengan ❤️ menggunakan Streamlit • Regula Falsi Professional Edition</div>", unsafe_allow_html
