@@ -1,6 +1,12 @@
 import streamlit as st
 
 
+if fa * fc < 0:
+b = c
+else:
+a = c
+
+
 iterasi += 1
 if iterasi > 100:
 akar = None
@@ -48,3 +54,4 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 
 st.markdown("<div class='footer'>Dibuat dengan ❤️ menggunakan Streamlit • Regula Falsi Professional Edition</div>", unsafe_allow_html=True)
+
