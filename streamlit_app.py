@@ -58,7 +58,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 
 def f(x):
-return eval(fungsi)
+    return eval(fungsi)
 
 
 if hitung:
