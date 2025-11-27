@@ -126,7 +126,8 @@ with colR1:
     if akar is not None:
         st.markdown(
             f"<div class='result'>Akar ditemukan pada:<br><b>{akar}</b></div>",
-            unsafe_allow_html=True)
+            unsafe_allow_html=True
+        )
     else:
         # jika pengguna belum menghitung, tampilkan info netral; jika sudah dihitung tapi None, tampilkan error
         if hitung:
@@ -157,7 +158,13 @@ if data:
         plt.title("Grafik Konvergensi Metode Regula Falsi")
         st.pyplot(plt, clear_figure=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+else:
+    with colR1:
+        st.info("Tabel iterasi akan muncul setelah perhitungan selesai.")
+    with colR2:
+        st.info("Grafik konvergensi akan muncul setelah perhitungan selesai.")
 
 st.markdown("<div class='footer'>Dibuat dengan ❤️ menggunakan Streamlit • Regula Falsi Professional Edition</div>", unsafe_allow_html=True)
 
