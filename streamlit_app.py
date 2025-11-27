@@ -122,12 +122,14 @@ colR1, colR2 = st.columns(2)
 akar = None
 data = []
 
-if hitung:  # asumsi `hitung` adalah hasil st.button(...)
-    iterasi = 0
-    data = []
+if hitung:  
+    
     a_local = a
     b_local = b
 
+    iterasi = 0
+    data = []
+    
     while True:
         fa = f(a_local)
         fb = f(b_local)
@@ -166,7 +168,6 @@ with colR1:
             unsafe_allow_html=True
         )
     else:
-        # jika pengguna belum menghitung, tampilkan info netral; jika sudah dihitung tapi None, tampilkan error
         if hitung:
             st.error("Akar tidak ditemukan dalam 100 iterasi atau interval tidak valid.")
         else:
@@ -187,14 +188,14 @@ if data:
     with colR2:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("### 📈 Grafik Konvergensi Akar")
-
-        plt.figure()
-        plt.plot(df["Iterasi"], df["c"], marker="o")
-        plt.xlabel("Iterasi")
-        plt.ylabel("Nilai c (perkiraan akar)")
-        plt.title("Grafik Konvergensi Metode Regula Falsi")
-        st.pyplot(plt, clear_figure=True)
-
+        
+        fig, ax = plt.subplots()
+        ax.plot(df["Iterasi"], df["c"], marker="o")
+        ax.set_xlabel("Iterasi")
+        ax.set_ylabel("Nilai c (perkiraan akar)")
+        ax.set_title("Grafik Konvergensi Metode Regula Falsi")
+        st.pyplot(fig, clear_figure=True)
+        
         st.markdown("</div>", unsafe_allow_html=True)
 
 else:
