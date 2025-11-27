@@ -124,32 +124,38 @@ with colR1:
     st.markdown("### ✅ Hasil Perhitungan")
 
     if akar is not None:
-        st.markdown(f"<div class='result'>Akar ditemukan pada:<br><b>{akar}</b></div>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div class='result'>Akar ditemukan pada:<br><b>{akar}</b></div>",
+            unsafe_allow_html=True)
     else:
-        st.error("Akar tidak ditemukan dalam 100 iterasi.")
-        
+        # jika pengguna belum menghitung, tampilkan info netral; jika sudah dihitung tapi None, tampilkan error
+        if hitung:
+            st.error("Akar tidak ditemukan dalam 100 iterasi atau interval tidak valid.")
+        else:
+            st.info("Tekan tombol 'Hitung Akar' untuk memulai perhitungan.")
+
     st.markdown("</div>", unsafe_allow_html=True)
+    
+if data:
+    df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
+    
+    
+    with colR1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📊 Tabel Iterasi")
+        st.dataframe(df, use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+       
+    with colR2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📈 Grafik Konvergensi Akar")
 
-df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
-
-
-with colR1:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.markdown("### 📊 Tabel Iterasi")
-    st.dataframe(df, use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-with colR2:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.markdown("### 📈 Grafik Konvergensi Akar")
-
-
-    plt.figure()
-    plt.plot(df["Iterasi"], df["c"], marker="o")
-    plt.xlabel("Iterasi")
-    plt.ylabel("Nilai c (perkiraan akar)")
-    plt.title("Grafik Konvergensi Metode Regula Falsi")
-    st.pyplot(plt, clear_figure=True)
+        plt.figure()
+        plt.plot(df["Iterasi"], df["c"], marker="o")
+        plt.xlabel("Iterasi")
+        plt.ylabel("Nilai c (perkiraan akar)")
+        plt.title("Grafik Konvergensi Metode Regula Falsi")
+        st.pyplot(plt, clear_figure=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
