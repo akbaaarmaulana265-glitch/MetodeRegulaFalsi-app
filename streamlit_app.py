@@ -117,6 +117,8 @@ if hitung:
             akar = None
             break
 
+colR1, colR2 = st.columns(2)
+
 with colR1:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.markdown("### ✅ Hasil Perhitungan")
