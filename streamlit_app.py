@@ -123,7 +123,6 @@ with colR1:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.markdown("### ✅ Hasil Perhitungan")
 
-
     if akar is not None:
         st.markdown(f"<div class='result'>Akar ditemukan pada:<br><b>{akar}</b></div>", unsafe_allow_html=True)
     else:
