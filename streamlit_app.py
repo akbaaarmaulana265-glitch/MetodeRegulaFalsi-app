@@ -119,6 +119,43 @@ if hitung:
 
 colR1, colR2 = st.columns(2)
 
+akar = None
+data = []
+
+if hitung:  # asumsi `hitung` adalah hasil st.button(...)
+    iterasi = 0
+    data = []
+    a_local = a
+    b_local = b
+
+    while True:
+        fa = f(a_local)
+        fb = f(b_local)
+
+        denom = (fb - fa)
+        if denom == 0:
+            akar = None
+            break
+
+        c = b_local - fb * (b_local - a_local) / denom
+        fc = f(c)
+
+        data.append([iterasi, a_local, b_local, c, fa, fb, fc])
+
+        if abs(fc) < toleransi:
+            akar = c
+            break
+
+        if fa * fc < 0:
+            b_local = c
+        else:
+            a_local = c
+
+        iterasi += 1
+        if iterasi > 100:
+            akar = None
+            break
+
 with colR1:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.markdown("### ✅ Hasil Perhitungan")
