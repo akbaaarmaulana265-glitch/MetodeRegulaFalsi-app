@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 import pandas as pd
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Regula Falsi • Dark Mode",
@@ -8,6 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---------------- CSS ----------------
 st.markdown("""
 <style>
     body {
@@ -41,28 +43,12 @@ st.markdown("""
         animation: fade 0.7s ease;
     }
 
-    @keyframes fade {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0px); }
-    }
-
     .result-card {
         padding: 18px;
         border-radius: 12px;
         background: rgba(0, 255, 170, 0.1);
         border-left: 6px solid #00ffaa;
-        animation: fade 0.6s ease;
         font-size: 20px;
-    }
-
-    .sidebar .sidebar-content {
-        background-color: #0D1326;
-        color: white;
-    }
-
-    .small-text {
-        font-size: 12px;
-        opacity: 0.7;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -70,21 +56,13 @@ st.markdown("""
 st.markdown("<div class='title'>🌙 Regula Falsi Calculator – Dark Mode</div>", unsafe_allow_html=True)
 st.write("")
 
+# ---------------- SIDEBAR ----------------
 st.sidebar.title("📘 Quick Info")
 st.sidebar.write("""
-**Regula Falsi** adalah metode akar numerik menggunakan pendekatan *secant* tetapi menjaga interval tetap valid.
-
-**Dipakai untuk:**
-- Persamaan non-linear  
-- Estimasi akar tanpa turunan  
+Metode **Regula Falsi** digunakan untuk mencari akar dari persamaan non-linear.
 """)
 
-st.sidebar.write("---")
-st.sidebar.markdown(
-    "<div class='small-text'>Dark Mode UI by Akbar Maulana</div>",
-    unsafe_allow_html=True
-)
-
+# ----------- INPUT AREA -------------
 col1, col2 = st.columns([1.2, 1])
 
 with col1:
@@ -103,42 +81,70 @@ with col1:
 with col2:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("📑 Penjelasan Metode")
-
     st.write("""
-Metode **Regula Falsi** bekerja dengan:
-1. Menghitung garis secant antara titik (a, f(a)) dan (b, f(b))
-2. Menemukan titik potong garis → perkiraan akar
-3. Memperbarui interval berdasarkan tanda f(c)
-4. Mengulang sampai akurasi tercapai
+Metode ini menggunakan garis secant antara titik (a, f(a)) dan (b, f(b)) untuk 
+mendapatkan titik potong (akar perkiraan) sampai error kecil.
     """)
     st.markdown("</div>", unsafe_allow_html=True)
 
 def f(x):
-    return eval(fungsi)
+    try:
+        return eval(fungsi, {"x": x})
+    except:
+        return float("nan")
+
+# Kolom Output
+colR1, colR2 = st.columns(2)
+
+# ----------- Proses Perhitungan -----------
 data = []
-if len(data) > 0:
+
+if tombol:
+    iterasi = 0
+
+    while True:
+        fa = f(a)
+        fb = f(b)
+        c = (a*fb - b*fa) / (fb - fa)
+        fc = f(c)
+
+        iterasi += 1
+
+        data.append([iterasi, a, b, c, fa, fb, fc])
+
+        if abs(fc) < toleransi:
+            akar = c
+            break
+
+        if fa * fc < 0:
+            b = c
+        else:
+            a = c
+
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
+    # ---------- OUTPUT ----------
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📊 Tabel Iterasi")
+        st.subheader("📊 Tabel Iterasi")
         st.dataframe(df, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     with colR2:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### 📈 Grafik Konvergensi Akar")
+        st.subheader("📈 Grafik Konvergensi")
 
         fig, ax = plt.subplots()
         ax.plot(df["Iterasi"], df["c"], marker="o")
         ax.set_xlabel("Iterasi")
-        ax.set_ylabel("Nilai c (perkiraan akar)")
-        ax.set_title("Grafik Konvergensi Metode Regula Falsi")
+        ax.set_ylabel("Nilai c (akar perkiraan)")
+        ax.set_title("Konvergensi Regula Falsi")
         st.pyplot(fig, clear_figure=True)
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 else:
     with colR1:
-        st.info("Tabel iterasi akan muncul setelah perhitungan selesai.")
+        st.info("Tabel akan muncul setelah perhitungan.")
     with colR2:
-        st.info("Grafik konvergensi akan muncul setelah perhitungan selesai.")
+        st.info("Grafik akan muncul setelah perhitungan.")
