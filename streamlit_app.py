@@ -145,7 +145,7 @@ if tombol:
     # Tampilkan grafik
         st.pyplot(fig, clear_figure=True)
 
-        st.markdown("</div>", unsafe_allow_html=True
+        st.markdown("</div>", unsafe_allow_html=True)
 
 else:
     with colR1:
