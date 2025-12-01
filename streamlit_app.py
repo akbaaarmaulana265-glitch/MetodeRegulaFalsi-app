@@ -95,7 +95,7 @@ st.sidebar.write("""
 
 st.sidebar.write("---")
 st.sidebar.markdown(
-    "<div class='small-text'>Dark Mode UI by Akbar Maulana</div>",
+    "<div class='small-text'>Di buat oleh Akbar Maulana</div>",
     unsafe_allow_html=True
 )
 
