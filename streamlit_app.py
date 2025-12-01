@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import pandas as pd
 
 st.set_page_config(
     page_title="Regula Falsi • Dark Mode",
@@ -115,60 +116,33 @@ Metode **Regula Falsi** bekerja dengan:
 def f(x):
     return eval(fungsi)
 
-data = []
-if tombol:
-
-    with st.spinner("Menghitung akar... 🔄"):
-        time.sleep(0.8)
-
-    a_local, b_local = a, b
-    data = []
-    akar = None
-
-    for i in range(100):
-        fa = f(a_local)
-        fb = f(b_local)
-
-        if fb - fa == 0:
-            break
-
-        c = b_local - fb * (b_local - a_local) / (fb - fa)
-        fc = f(c)
-
-        data.append([i, a_local, b_local, c, fa, fb, fc])
-
-        if abs(fc) < toleransi:
-            akar = c
-            break
-
-        if fa * fc < 0:
-            b_local = c
-        else:
-            a_local = c
-
-    st.write("---")
-    colR1, colR2 = st.columns([1.1, 1])
+if len(data) > 0:
+    df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📌 Hasil Perhitungan")
-
-        if akar is not None:
-            st.markdown(
-                f"<div class='result-card'>Akar ditemukan pada:<br><b>{akar}</b></div>",
-                unsafe_allow_html=True
-            )
-            st.success("Perhitungan selesai ✔")
-        else:
-            st.error("Akar tidak ditemukan atau interval tidak sesuai.")
-
+        st.markdown("### 📊 Tabel Iterasi")
+        st.dataframe(df, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    df = pd.DataFrame(
-        data,
-        columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"]
-    )
-    
+    with colR2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### 📈 Grafik Konvergensi Akar")
+
+        fig, ax = plt.subplots()
+        ax.plot(df["Iterasi"], df["c"], marker="o")
+        ax.set_xlabel("Iterasi")
+        ax.set_ylabel("Nilai c (perkiraan akar)")
+        ax.set_title("Grafik Konvergensi Metode Regula Falsi")
+        st.pyplot(fig, clear_figure=True)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+else:
+    with colR1:
+        st.info("Tabel iterasi akan muncul setelah perhitungan selesai.")
+    with colR2:
+        st.info("Grafik konvergensi akan muncul setelah perhitungan selesai.")
+ 
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📊 Tabel Iterasi")
