@@ -56,13 +56,11 @@ st.markdown("""
 st.markdown("<div class='title'>🌙 Regula Falsi Calculator – Dark Mode</div>", unsafe_allow_html=True)
 st.write("")
 
-# ---------------- SIDEBAR ----------------
 st.sidebar.title("📘 Quick Info")
 st.sidebar.write("""
 Metode **Regula Falsi** digunakan untuk mencari akar dari persamaan non-linear.
 """)
 
-# ----------- INPUT AREA -------------
 col1, col2 = st.columns([1.2, 1])
 
 with col1:
@@ -96,7 +94,6 @@ def f(x):
 # Kolom Output
 colR1, colR2 = st.columns(2)
 
-# ----------- Proses Perhitungan -----------
 data = []
 
 if tombol:
@@ -109,7 +106,6 @@ if tombol:
         fc = f(c)
 
         iterasi += 1
-
         data.append([iterasi, a, b, c, fa, fb, fc])
 
         if abs(fc) < toleransi:
@@ -121,31 +117,29 @@ if tombol:
         else:
             a = c
 
+    # Buat DataFrame
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
-    
-with colR1:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.subheader("📊 Tabel Iterasi")
-    st.dataframe(df, use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
 
-with colR2:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.subheader("📈 Grafik Konvergensi")
+    # === Output Tabel ===
+    with colR1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader("📊 Tabel Iterasi")
+        st.dataframe(df, use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    try:
+    # === Output Grafik ===
+    with colR2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader("📈 Grafik Konvergensi")
+
         fig, ax = plt.subplots()
         ax.plot(df["Iterasi"], df["c"], marker="o")
         ax.set_xlabel("Iterasi")
         ax.set_ylabel("Nilai c")
         ax.set_title("Grafik Konvergensi Metode Regula Falsi")
-        st.pyplot(fig, clear_figure=True)
-    except Exception as e:
-        st.error(f"Gagal membuat grafik: {e}")
-        # fallback: tampilkan tabel saja
-        st.write(df[["Iterasi", "c"]])
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        st.pyplot(fig, clear_figure=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 else:
     with colR1:
