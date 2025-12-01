@@ -115,7 +115,7 @@ Metode **Regula Falsi** bekerja dengan:
 
 def f(x):
     return eval(fungsi)
-
+data = []
 if len(data) > 0:
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
