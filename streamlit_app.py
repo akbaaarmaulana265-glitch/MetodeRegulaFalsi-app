@@ -8,7 +8,7 @@ import time
 # PAGE CONFIG
 # ------------------------------
 st.set_page_config(
-    page_title="Regula Falsi • Dark Mode",
+    page_title="Regula Falsi • By Akbar Maulana ",
     page_icon="🌙",
     layout="wide"
 )
@@ -78,7 +78,7 @@ st.markdown("""
 # ------------------------------
 # TITLE
 # ------------------------------
-st.markdown("<div class='title'>🌙 Regula Falsi Calculator – Dark Mode</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🌙 Regula Falsi Web Sederhana</div>", unsafe_allow_html=True)
 st.write("")
 
 # ------------------------------
