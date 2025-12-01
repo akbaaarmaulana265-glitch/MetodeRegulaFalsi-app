@@ -1,17 +1,11 @@
 import streamlit as st
 
-# ------------------------------
-# PAGE CONFIG
-# ------------------------------
 st.set_page_config(
     page_title="Regula Falsi • Dark Mode",
     page_icon="🌙",
     layout="wide"
 )
 
-# ------------------------------
-# DARK MODE STYLE
-# ------------------------------
 st.markdown("""
 <style>
     body {
@@ -71,9 +65,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ------------------------------
-# TITLE
-# ------------------------------
 st.markdown("<div class='title'>🌙 Regula Falsi Calculator – Dark Mode</div>", unsafe_allow_html=True)
 st.write("")
 
@@ -92,9 +83,6 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# ------------------------------
-# INPUT SECTION
-# ------------------------------
 col1, col2 = st.columns([1.2, 1])
 
 with col1:
@@ -126,9 +114,7 @@ Metode **Regula Falsi** bekerja dengan:
 def f(x):
     return eval(fungsi)
 
-# ------------------------------
-# PERHITUNGAN
-# ------------------------------
+data = []
 if tombol:
 
     with st.spinner("Menghitung akar... 🔄"):
@@ -162,7 +148,6 @@ if tombol:
     st.write("---")
     colR1, colR2 = st.columns([1.1, 1])
 
-    # ========================== HASIL AKAR ==========================
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📌 Hasil Perhitungan")
@@ -178,18 +163,17 @@ if tombol:
 
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # ========================== TABEL ITERASI ==========================
     df = pd.DataFrame(
         data,
         columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"]
     )
+    
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📊 Tabel Iterasi")
         st.dataframe(df, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # ========================== GRAFIK ==========================
     with colR2:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📈 Grafik Konvergensi")
