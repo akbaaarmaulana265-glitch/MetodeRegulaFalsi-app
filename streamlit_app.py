@@ -131,7 +131,6 @@ if tombol:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📈 Grafik Konvergensi")
 
-        fig, ax = plt.subplots()
         ax.plot(df["Iterasi"], df["c"], marker="o")
         ax.set_xlabel("Iterasi")
         ax.set_ylabel("Nilai c")
