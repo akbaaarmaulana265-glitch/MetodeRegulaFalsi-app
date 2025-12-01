@@ -122,14 +122,14 @@ if tombol:
             a = c
 
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
+    
+with colR1:
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("📊 Tabel Iterasi")
+    st.dataframe(df, use_container_width=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    with colR1:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📊 Tabel Iterasi")
-        st.dataframe(df, use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    with colR2:
+with colR2:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("📈 Grafik Konvergensi")
 
