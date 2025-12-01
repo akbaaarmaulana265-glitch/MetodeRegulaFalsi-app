@@ -267,8 +267,7 @@ st.markdown("""
     Dibuat oleh <b>Akbar Maulana</b> ❤ menggunakan Streamlit • Regula Falsi
     <br>
 
-    <a href=https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1
+    https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1
         📸 Follow Instagram Saya
-    </a>
 </div>
 """, unsafe_allow_html=True)
