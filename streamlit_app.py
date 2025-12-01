@@ -222,8 +222,6 @@ if tombol:
 else:
     st.info("Klik tombol **Hitung Akar** untuk memulai perhitungan.")
 
-st.markdown("<div class='footer'>Dibuat oleh Akbar Maulana ❤ menggunakan Streamlit • Regula Falsi</div>", unsafe_allow_html=True)
-
 st.markdown("""
 <style>
     .footer {
