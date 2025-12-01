@@ -2,62 +2,44 @@ import streamlit as st
 
 st.set_page_config(page_title="Regula Falsi Calculator", layout="wide", page_icon="⚡")
 
-st.markdown("""
-<style>
-    body {
-        background-color: #0A0F1F;
-        color: #E0E0E0;
-        font-family: 'Segoe UI', sans-serif;
-    }
+st.markdown(
+    """
+    <style>
+        body { background-color: #f5f7fa; }
+        .title {
+            text-align: center;
+            font-size: 42px;
+            color: #2b5876;
+            font-weight: bold;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #4a6572;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+        }
+        .result {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            font-size: 20px;
+        }
+        .footer {
+        margin-top: 30px;
+        text-align: center;
+        color: #7b8794;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-    .title {
-        text-align:center;
-        font-size: 50px;
-        font-weight: 900;
-        background: linear-gradient(90deg, #00eaff, #005eff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 5px;
-        animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-        from { text-shadow: 0 0 10px #00eaff; }
-        to   { text-shadow: 0 0 25px #009dff; }
-    }
-
-    .card {
-        padding: 25px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        animation: fade 0.7s ease;
-    }
-
-    @keyframes fade {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0px); }
-    }
-
-    .result-card {
-        padding: 18px;
-        border-radius: 12px;
-        background: rgba(0, 255, 170, 0.1);
-        border-left: 6px solid #00ffaa;
-        animation: fade 0.6s ease;
-        font-size: 20px;
-    }
-
-    .sidebar .sidebar-content {
-        background-color: #0D1326;
-        color: white;
-    }
-
-    .small-text {
-        font-size: 12px;
-        opacity: 0.7;
-    }
 </style>
 """, unsafe_allow_html=True)st.markdown("<div class='title'>⚡ Metode Regula Falsi </div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Web Sederhana Regula Falsi</div>", unsafe_allow_html=True)
