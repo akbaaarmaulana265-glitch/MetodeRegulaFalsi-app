@@ -174,7 +174,9 @@ with colR1:
             st.info("Tekan tombol 'Hitung Akar' untuk memulai perhitungan.")
 
     st.markdown("</div>", unsafe_allow_html=True)
-    
+
+
+data = []
 if data:
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
     
