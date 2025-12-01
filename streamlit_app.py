@@ -142,30 +142,3 @@ else:
         st.info("Tabel iterasi akan muncul setelah perhitungan selesai.")
     with colR2:
         st.info("Grafik konvergensi akan muncul setelah perhitungan selesai.")
- 
-    with colR1:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📊 Tabel Iterasi")
-        st.dataframe(df, use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    with colR2:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📈 Grafik Konvergensi")
-
-        fig, ax = plt.subplots()
-        ax.plot(df["Iterasi"], df["c"], marker="o", linewidth=2, color="#00eaff")
-        ax.set_facecolor("#0D1326")
-        fig.patch.set_facecolor("#0A0F1F")
-
-        ax.set_xlabel("Iterasi", color="white")
-        ax.set_ylabel("Nilai c", color="white")
-        ax.set_title("Pergerakan Akar", color="#00eaff")
-
-        ax.tick_params(colors="white")
-
-        st.pyplot(fig)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-else:
-    st.info("Klik tombol **Hitung Akar** untuk memulai perhitungan.")
