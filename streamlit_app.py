@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 import pandas as pd
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Regula Falsi • Dark Mode",
@@ -122,7 +123,6 @@ if tombol:
 
     df = pd.DataFrame(data, columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"])
 
-    # ---------- OUTPUT ----------
     with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📊 Tabel Iterasi")
@@ -130,17 +130,23 @@ if tombol:
         st.markdown("</div>", unsafe_allow_html=True)
 
     with colR2:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📈 Grafik Konvergensi")
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("📈 Grafik Konvergensi")
 
+    try:
         fig, ax = plt.subplots()
         ax.plot(df["Iterasi"], df["c"], marker="o")
         ax.set_xlabel("Iterasi")
-        ax.set_ylabel("Nilai c (akar perkiraan)")
-        ax.set_title("Konvergensi Regula Falsi")
+        ax.set_ylabel("Nilai c")
+        ax.set_title("Grafik Konvergensi Metode Regula Falsi")
         st.pyplot(fig, clear_figure=True)
+    except Exception as e:
+        st.error(f"Gagal membuat grafik: {e}")
+        # fallback: tampilkan tabel saja
+        st.write(df[["Iterasi", "c"]])
 
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 else:
     with colR1:
