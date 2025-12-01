@@ -1,152 +1,223 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import time
 
-# -----------------------------------------
-#            DARK MODE CUSTOM CSS
-# -----------------------------------------
+# ------------------------------
+# PAGE CONFIG
+# ------------------------------
+st.set_page_config(
+    page_title="Regula Falsi • Dark Mode",
+    page_icon="🌙",
+    layout="wide"
+)
+
+# ------------------------------
+# DARK MODE STYLE
+# ------------------------------
 st.markdown("""
 <style>
-body {
-    background-color: #0A0F1F;
-    color: #e0e0e0;
-}
-h1, h2, h3, h4, h5, h6 {
-    color: #00eaff;
-}
-.card {
-    background: #111a33;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 10px;
-    box-shadow: 0px 0px 10px #00eaff33;
-}
-.result {
-    color: #00ffcc;
-    font-size: 20px;
-    font-weight: bold;
-}
+    body {
+        background-color: #0A0F1F;
+        color: #E0E0E0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .title {
+        text-align:center;
+        font-size: 50px;
+        font-weight: 900;
+        background: linear-gradient(90deg, #00eaff, #005eff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 5px;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #00eaff; }
+        to   { text-shadow: 0 0 25px #009dff; }
+    }
+
+    .card {
+        padding: 25px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        animation: fade 0.7s ease;
+    }
+
+    @keyframes fade {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0px); }
+    }
+
+    .result-card {
+        padding: 18px;
+        border-radius: 12px;
+        background: rgba(0, 255, 170, 0.1);
+        border-left: 6px solid #00ffaa;
+        animation: fade 0.6s ease;
+        font-size: 20px;
+    }
+
+    .sidebar .sidebar-content {
+        background-color: #0D1326;
+        color: white;
+    }
+
+    .small-text {
+        font-size: 12px;
+        opacity: 0.7;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------------------
-#              TITLE APP
-# -----------------------------------------
-st.title("📘 Aplikasi Metode Regula Falsi — Versi Streamlit (Dark Mode + Plotly)")
+# ------------------------------
+# TITLE
+# ------------------------------
+st.markdown("<div class='title'>🌙 Regula Falsi Calculator – Dark Mode</div>", unsafe_allow_html=True)
+st.write("")
 
-st.write("Masukkan fungsi, batas bawah, batas atas, dan toleransi.")
+# ------------------------------
+# SIDEBAR
+# ------------------------------
+st.sidebar.title("📘 Quick Info")
+st.sidebar.write("""
+**Regula Falsi** adalah metode akar numerik menggunakan pendekatan *secant* tetapi menjaga interval tetap valid.
 
-# -----------------------------------------
-#              INPUT USER
-# -----------------------------------------
-fungsi_input = st.text_input("Fungsi f(x) :", "x**3 - x - 2")
-a = st.number_input("Batas bawah (a) :", value=1.0)
-b = st.number_input("Batas atas (b) :", value=2.0)
-tol = st.number_input("Toleransi :", value=0.0001)
+**Dipakai untuk:**
+- Persamaan non-linear  
+- Estimasi akar tanpa turunan  
+""")
 
-# -----------------------------------------
-#         DEFINISI FUNGSI DINAMIS
-# -----------------------------------------
+st.sidebar.write("---")
+st.sidebar.markdown(
+    "<div class='small-text'>Dark Mode UI by Akbar Maulana</div>",
+    unsafe_allow_html=True
+)
+
+# ------------------------------
+# INPUT SECTION
+# ------------------------------
+col1, col2 = st.columns([1.2, 1])
+
+with col1:
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("🔧 Input Parameter")
+
+    fungsi = st.text_input("Masukkan Fungsi f(x):", "x**3 - x - 2")
+    a = st.number_input("Batas bawah (a):", value=1.0)
+    b = st.number_input("Batas atas (b):", value=2.0)
+    toleransi = st.number_input("Toleransi error:", value=0.0001)
+
+    tombol = st.button("⚡ Hitung Akar", use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+with col2:
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("📑 Penjelasan Metode")
+
+    st.write("""
+Metode **Regula Falsi** bekerja dengan:
+1. Menghitung garis secant antara titik (a, f(a)) dan (b, f(b))
+2. Menemukan titik potong garis → perkiraan akar
+3. Memperbarui interval berdasarkan tanda f(c)
+4. Mengulang sampai akurasi tercapai
+    """)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# ------------------------------
+# FUNGSI UNTUK PERHITUNGAN
+# ------------------------------
 def f(x):
-    try:
-        return eval(fungsi_input, {"x": x, "np": np})
-    except Exception:
-        return None
+    return eval(fungsi)
 
-# -----------------------------------------
-#           TOMBOL PROSES
-# -----------------------------------------
-if st.button("Hitung Regula Falsi"):
-    with st.spinner("Menghitung..."):
-        time.sleep(0.5)
+# ------------------------------
+# PERHITUNGAN
+# ------------------------------
+if tombol:
 
-    iterasi_list = []
-    c_list = []
+    with st.spinner("Menghitung akar... 🔄"):
+        time.sleep(0.8)
 
-    fa = f(a)
-    fb = f(b)
+    a_local, b_local = a, b
+    data = []
+    akar = None
 
-    if fa is None or fb is None:
-        st.error("❌ Fungsi tidak valid. Periksa input fungsi!")
-    elif fa * fb > 0:
-        st.error("❌ f(a) dan f(b) harus berlawanan tanda (akar terletak di antara a dan b).")
-    else:
-        # -----------------------------------------
-        #           PERHITUNGAN REGULA FALSI
-        # -----------------------------------------
-        iterasi = 0
-        while True:
-            iterasi += 1
-            c = (a * f(b) - b * f(a)) / (f(b) - f(a))
-            fc = f(c)
+    for i in range(100):
+        fa = f(a_local)
+        fb = f(b_local)
 
-            iterasi_list.append(iterasi)
-            c_list.append(c)
+        if fb - fa == 0:
+            break
 
-            if abs(fc) < tol:
-                break
+        c = b_local - fb * (b_local - a_local) / (fb - fa)
+        fc = f(c)
 
-            if f(a) * fc < 0:
-                b = c
-            else:
-                a = c
+        data.append([i, a_local, b_local, c, fa, fb, fc])
 
-            if iterasi >= 50:
-                break
+        if abs(fc) < toleransi:
+            akar = c
+            break
 
-        akar = c
+        if fa * fc < 0:
+            b_local = c
+        else:
+            a_local = c
 
-        # -----------------------------------------
-        #           TAMPILKAN HASIL
-        # -----------------------------------------
-        col1, col2 = st.columns(2)
+    st.write("---")
+    colR1, colR2 = st.columns([1.1, 1])
 
-        # ========= Kolom Hasil ==========
-        with col1:
-            st.markdown("<div class='card'>", unsafe_allow_html=True)
-            st.subheader("📌 Hasil Perhitungan")
-            st.write(f"**Akar ditemukan:** `{akar}`")
-            st.write(f"Jumlah Iterasi: **{iterasi}**")
-            st.markdown("</div>", unsafe_allow_html=True)
+    # ========================== HASIL AKAR ==========================
+    with colR1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader("📌 Hasil Perhitungan")
 
-        # ========= Kolom Grafik Plotly ==========
-        with col2:
-            st.markdown("<div class='card'>", unsafe_allow_html=True)
-            st.subheader("📈 Grafik Konvergensi")
-
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(
-                x=iterasi_list,
-                y=c_list,
-                mode="lines+markers",
-                line=dict(width=3),
-                marker=dict(size=7)
-            ))
-
-            fig.update_layout(
-                template="plotly_dark",
-                xaxis_title="Iterasi",
-                yaxis_title="Nilai c",
-                title="Grafik Konvergensi Metode Regula Falsi",
-                plot_bgcolor="#0A0F1F",
-                paper_bgcolor="#0A0F1F",
-                font=dict(color="#e0e0e0")
+        if akar is not None:
+            st.markdown(
+                f"<div class='result-card'>Akar ditemukan pada:<br><b>{akar}</b></div>",
+                unsafe_allow_html=True
             )
+            st.success("Perhitungan selesai ✔")
+        else:
+            st.error("Akar tidak ditemukan atau interval tidak sesuai.")
 
-            st.plotly_chart(fig, use_container_width=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        # -----------------------------------------
-        #           TABEL ITERASI
-        # -----------------------------------------
+    # ========================== TABEL ITERASI ==========================
+    df = pd.DataFrame(
+        data,
+        columns=["Iterasi", "a", "b", "c", "f(a)", "f(b)", "f(c)"]
+    )
+
+    with colR1:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📊 Tabel Iterasi")
-
-        df = pd.DataFrame({
-            "Iterasi": iterasi_list,
-            "c": c_list
-        })
-
         st.dataframe(df, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
+
+    # ========================== GRAFIK ==========================
+    with colR2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader("📈 Grafik Konvergensi")
+
+        fig, ax = plt.subplots()
+        ax.plot(df["Iterasi"], df["c"], marker="o", linewidth=2, color="#00eaff")
+        ax.set_facecolor("#0D1326")
+        fig.patch.set_facecolor("#0A0F1F")
+
+        ax.set_xlabel("Iterasi", color="white")
+        ax.set_ylabel("Nilai c", color="white")
+        ax.set_title("Pergerakan Akar", color="#00eaff")
+
+        ax.tick_params(colors="white")
+
+        st.pyplot(fig)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+else:
+    st.info("Klik tombol **Hitung Akar** untuk memulai perhitungan.")
