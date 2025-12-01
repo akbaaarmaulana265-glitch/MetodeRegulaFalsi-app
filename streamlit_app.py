@@ -40,7 +40,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown("<div class='title'>⚡ Metode Regula Falsi </div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Aplikasi profesional untuk mencari akar persamaan non-linear</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Web Sederhana Regula Falsi</div>", unsafe_allow_html=True)
 
 
 st.write("---")
@@ -204,6 +204,6 @@ else:
     with colR2:
         st.info("Grafik konvergensi akan muncul setelah perhitungan selesai.")
 
-st.markdown("<div class='footer'>Dibuat dengan ❤ menggunakan Streamlit • Regula Falsi Professional Edition</div>", unsafe_allow_html=True)
+st.markdown("<div class='footer'>Dibuat oleh Akbar Maulana ❤ menggunakan Streamlit • Regula Falsi </div>", unsafe_allow_html=True)
 
 # --- DARK MODE & DASHBOARD VERSION BELOW WILL BE ADDED ---
