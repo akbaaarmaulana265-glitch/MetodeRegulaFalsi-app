@@ -131,12 +131,21 @@ if tombol:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader("📈 Grafik Konvergensi")
 
+    # Membuat figure dan axes
+        fig, ax = plt.subplots()
+
+    # Plot garis konvergensi
+        ax.plot(df["Iterasi"], df["c"], marker="o")
+
+    # Label sumbu dan judul
         ax.set_xlabel("Iterasi")
         ax.set_ylabel("Nilai c")
         ax.set_title("Grafik Konvergensi Metode Regula Falsi")
 
+    # Tampilkan grafik
         st.pyplot(fig, clear_figure=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+
+        st.markdown("</div>", unsafe_allow_html=True
 
 else:
     with colR1:
