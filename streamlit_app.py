@@ -147,9 +147,8 @@ with colR2:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-
-else:
-    with colR1:
-        st.info("Tabel akan muncul setelah perhitungan.")
-    with colR2:
-        st.info("Grafik akan muncul setelah perhitungan.")
+    else:
+        with colR1:
+            st.info("Tabel akan muncul setelah perhitungan.")
+        with colR2:
+            st.info("Grafik akan muncul setelah perhitungan.")
