@@ -269,7 +269,7 @@ st.markdown("""
     Dibuat oleh <b>Akbar Maulana</b> ❤ menggunakan Streamlit • Regula Falsi
     <br>
 
-    <a href=https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1 target="_blank" class="ig-btn">
+    <a href=https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1
         📸 Follow Instagram Saya
     </a>
 </div>
