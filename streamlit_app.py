@@ -222,5 +222,5 @@ if tombol:
 else:
     st.info("Klik tombol **Hitung Akar** untuk memulai perhitungan.")
 st.write(
-    "My Instagram [https://www.instagram.com/akbaar_05/?__pwa=1]."
+    "My Instagram https://www.instagram.com/akbaar_05/?__pwa=1"
 )
