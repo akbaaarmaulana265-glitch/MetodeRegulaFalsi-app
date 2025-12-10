@@ -221,53 +221,5 @@ if tombol:
 
 else:
     st.info("Klik tombol **Hitung Akar** untuk memulai perhitungan.")
-
-st.markdown("""
-<style>
-    .footer {
-        margin-top: 40px;
-        padding: 15px;
-        text-align: center;
-        color: #E0E0E0;
-        font-size: 14px;
-        opacity: 0.8;
-    }
-
-    .footer a {
-        color: #00eaff;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-
-    .footer a:hover {
-        color: #00ffaa;
-        text-shadow: 0 0 10px #00ffaa;
-    }
-
-    .ig-btn {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 16px;
-        border-radius: 25px;
-        background: linear-gradient(90deg, #ff0084, #ff8c00);
-        color: white !important;
-        font-weight: 600;
-        transition: 0.3s;
-        box-shadow: 0 4px 12px rgba(255, 0, 120, 0.4);
-    }
-
-    .ig-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(255, 0, 120, 0.6);
-    }
-</style>
-
-<div class='footer'>
-    Dibuat oleh <b>Akbar Maulana</b> ❤ menggunakan Streamlit • Regula Falsi
-    <br>
-
-    https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1
-        📸 Follow Instagram Saya
-</div>
-""", unsafe_allow_html=True)
+st.write(
+    "Let's start building! for help and inspiration, head over to https://www.instagram.com/"
