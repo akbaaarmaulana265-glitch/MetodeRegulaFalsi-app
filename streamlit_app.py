@@ -78,7 +78,7 @@ st.markdown("""
 # ------------------------------
 # TITLE
 # ------------------------------
-st.markdown("<div class='title'>🌙 Regula Falsi Web Sederhana</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🌙 Regula Falsi (Web Sederhana)</div>", unsafe_allow_html=True)
 st.write("")
 
 # ------------------------------
